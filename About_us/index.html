@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .about-section {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 60px;
+    }
+
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-top: 40px;
+      color: #333;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .column {
+      flex: 30%;
+      max-width: 30%;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      text-align: center;
+      padding: 20px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 5px 5px 0 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 34px;
+      color: #333;
+    }
+
+    .title {
+      font-size: 18px;
+      color: #777;
+    }
+
+    .button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="about-section">
+    <h1>About Us Page</h1>
+    <p>Some text about who we are and what we do.</p>
+    <p>Resize the browser window to see that this page is responsive.</p>
+  </div>
+
+  <h2>Our Team</h2>
+  <div class="row">
+    <div class="column">
+      <div class="card">
+        <img src="./Avatar1.avif" alt="Jane">
+        <div class="container">
+          <h2>Jane Doe</h2>
+          <p class="title">CEO & Founder</p>
+          <p>Some text that describes me.</p>
+          <p>jane@example.com</p>
+          <p><button class="button">Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="card">
+        <img src="./Avatar1.avif" alt="Mike">
+        <div class="container">
+          <h2>Mike Ross</h2>
+          <p class="title">Art Director</p>
+          <p>Some text that describes me.</p>
+          <p>mike@example.com</p>
+          <p><button class="button">Contact</button></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="card">
+        <img src="./Avatar1.avif" alt="John">
+        <div class="container">
+          <h2>John Doe</h2>
+          <p class="title">Designer</p>
+          <p>Some text that describes me.</p>
+          <p>john@example.com</p>
+          <p><button class="button">Contact</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h2 class="pagec main-hd">Login Form</h2>
+  <p class="pagec">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
+    molestiae quas vel sint commodi repudiandae consequuntur voluptatum
+    laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga
+    praesentium optio, eaque rerum! Provident similique accusantium nemo
+    autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto
+    voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit
+    sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas
+    aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa
+    laudantium molestias eos sapiente officiis modi at sunt excepturi expedita
+    sint? Sed quibusdam recusandae alias error harum maxime adipisci amet
+    laborum. Perspiciatis minima nesciunt dolorem! Officiis iure rerum
+    voluptates a cumque velit quibusdam sed amet tempora. Sit laborum ab, eius
+    fugit doloribus tenetur fugiat, temporibus enim commodi iusto libero magni
+    deleniti quod quam consequuntur! Commodi minima excepturi repudiandae
+    velit hic maxime doloremque. Quaerat provident commodi consectetur veniam
+    similique ad earum omnis ipsum saepe, voluptas, hic voluptates pariatur
+    est explicabo fugiat, dolorum eligendi quam cupiditate excepturi mollitia
+    maiores labore suscipit quas? Nulla, placeat. Voluptatem quaerat non
+    architecto ab laudantium modi minima sunt esse temporibus sint culpa,
+    recusandae aliquam numquam totam ratione voluptas quod exercitationem
+    fuga. Possimus quis earum veniam quasi aliquam eligendi, placeat qui
+    corporis!
+  </p>
+
+  <button class="pagec main-btn" onclick="document.getElementById('id01').style.display='block'" style="width: auto">
+    Login
+  </button>
+
+  <div id="id01" class="modal">
+    <form class="modal-content animate" action="" method="post">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <img src="./Avatar.jpg" alt="Avatar" class="avatar" style="width: 150px" />
+      </div>
+
+      <div class="container">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required />
+        <br>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required />
+
+        <button type="submit">Login</button>
+        <label>
+          <input type="checkbox" checked="checked" name="remember" /> Remember
+          me
+        </label>
+      </div>
+
+      <div class="container" style="background-color: #f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">
+          Cancel
+        </button>
+        <span class="psw"><a href="#">Forgot password?</a></span>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Get the modal
+    var modal = document.getElementById("id01");
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+
+</html>

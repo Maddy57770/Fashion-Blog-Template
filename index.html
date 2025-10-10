@@ -497,11 +497,24 @@ and is wrapped around the whole page content, except for the footer in this exam
     }
 
     function shareFunction(button) {
-      // You can add your logic here to handle the "Dislike" action
-      // For now, let's just change the button text to "Disliked"
-      button.innerHTML = "<i class='fa fa-share-alt'></i> Share";
-
-      button.disabled = true; // Disable the button after disliking
+      const originalHtml = button.innerHTML;
+      const url = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () {
+          button.innerHTML = "<i class='fa fa-check'></i> Copied!";
+          button.classList.add('w3-green');
+          setTimeout(function () {
+            button.innerHTML = originalHtml;
+            button.classList.remove('w3-green');
+          }, 1500);
+        }).catch(function () {
+          // Fallback prompt if clipboard fails
+          window.prompt('Copy the link below:', url);
+        });
+      } else {
+        // Legacy fallback
+        window.prompt('Copy the link below:', url);
+      }
     }
   </script>
 </body>

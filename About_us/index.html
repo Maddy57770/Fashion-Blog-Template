@@ -1,146 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us</title>
+  <title>About Us - Meet Our Team</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    .about-section {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 60px;
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #e94560;
+      --purple: #667eea;
+      --light: #f8f9fa;
+      --white: #ffffff;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
     }
 
-    h1 {
-      font-size: 42px;
-    }
-
-    p {
-      font-size: 18px;
-    }
-
-    h2 {
-      text-align: center;
-      font-size: 28px;
-      margin-top: 40px;
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--light);
       color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    .row {
+    /* Back Button */
+    .back-nav {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      animation: slideInLeft 0.5s ease;
+    }
+
+    .back-btn {
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .back-btn:hover {
+      transform: translateX(-5px);
+      background: var(--gradient);
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+    }
+
+    .back-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .back-btn:hover i {
+      transform: translateX(-3px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      min-height: 60vh;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(22, 33, 62, 0.95)),
+                  url('https://source.unsplash.com/1600x900/?office,team') center/cover;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .column {
-      flex: 30%;
-      max-width: 30%;
-      background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .card {
       text-align: center;
-      padding: 20px;
+      color: var(--white);
+      padding: 80px 20px 60px;
+      position: relative;
+      overflow: hidden;
     }
 
-    img {
+    .hero-section::before {
+      content: '';
+      position: absolute;
       width: 100%;
-      border-radius: 5px 5px 0 0;
+      height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(233, 69, 96, 0.3) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
     }
 
-    .container {
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 1s ease 0.2s backwards;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+      animation: fadeInUp 1s ease 0.4s backwards;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.7;
+      animation: fadeInUp 1s ease 0.6s backwards;
+    }
+
+    /* Section Title */
+    .section-title {
+      text-align: center;
+      margin: 80px 0 60px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .section-title h2 {
+      font-size: 3rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--gradient);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    /* Team Container */
+    .team-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+
+    /* Team Card */
+    .team-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: fadeInUp 0.6s ease backwards;
+    }
+
+    .team-card:nth-child(1) { animation-delay: 0.1s; }
+    .team-card:nth-child(2) { animation-delay: 0.2s; }
+    .team-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .team-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-image {
+      position: relative;
+      overflow: hidden;
+      height: 320px;
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .team-card:hover .card-image img {
+      transform: scale(1.1);
+    }
+
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(26, 26, 46, 0.9), transparent);
       padding: 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
     }
 
-    h2 {
-      font-size: 34px;
-      color: #333;
+    .team-card:hover .card-overlay {
+      transform: translateY(0);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--gradient);
+      transform: translateY(-3px);
+    }
+
+    .card-content {
+      padding: 30px;
+      text-align: center;
+    }
+
+    .card-content h2 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 8px;
     }
 
     .title {
-      font-size: 18px;
-      color: #777;
+      color: var(--purple);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .button {
-      background-color: #333;
-      color: #fff;
+    .description {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .email {
+      color: #999;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .contact-btn {
+      padding: 12px 30px;
+      background: var(--gradient);
+      color: var(--white);
       border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
+      border-radius: 50px;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+      font-size: 1rem;
     }
 
-    .button:hover {
-      background-color: #555;
+    .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: var(--primary);
+      color: var(--white);
+      padding: 60px 20px;
+      margin-top: 40px;
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      text-align: center;
+    }
+
+    .stat-item {
+      animation: fadeInUp 1s ease backwards;
+    }
+
+    .stat-item:nth-child(1) { animation-delay: 0.1s; }
+    .stat-item:nth-child(2) { animation-delay: 0.2s; }
+    .stat-item:nth-child(3) { animation-delay: 0.3s; }
+    .stat-item:nth-child(4) { animation-delay: 0.4s; }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1.1rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .team-container {
+        grid-template-columns: 1fr;
+      }
+
+      .back-nav {
+        top: 10px;
+        left: 10px;
+      }
+
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Scroll Animation Observer */
+    .observe {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .observe.active {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-
 <body>
-  <div style="padding:10px 16px;text-align:center;background:#111;color:#fff">
-    <a href="../index.html" style="color:#fff;text-decoration:none">← Back to Home</a>
-  </div>
-  <div class="about-section">
-    <h1>About Us Page</h1>
-    <p>Some text about who we are and what we do.</p>
-    <p>Resize the browser window to see that this page is responsive.</p>
+  <!-- Back Button -->
+  <div class="back-nav">
+    <a href="../index.html" class="back-btn">
+      <i class="fa fa-arrow-left"></i>
+      <span>Back to Home</span>
+    </a>
   </div>
 
-  <h2>Our Team</h2>
-  <div class="row">
-    <div class="column" style="transition:transform .2s ease, box-shadow .2s ease;">
-      <div class="card">
-        <img src="./Avatar1.avif" alt="Jane">
-        <div class="container">
-          <h2>Jane Doe</h2>
-          <p class="title">CEO & Founder</p>
-          <p>Some text that describes me.</p>
-          <p>jane@example.com</p>
-          <p><button class="button">Contact</button></p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1>About Our Team</h1>
+      <p>Meet the passionate individuals behind our success</p>
+      <p class="subtitle">We're a diverse team of creators, innovators, and dreamers working together to make a difference</p>
+    </div>
+  </section>
+
+  <!-- Section Title -->
+  <div class="section-title observe">
+    <h2>Meet Our Team</h2>
+    <p>Talented professionals dedicated to excellence</p>
+  </div>
+
+  <!-- Team Cards -->
+  <div class="team-container">
+    <!-- Team Member 1 -->
+    <div class="team-card">
+      <div class="card-image">
+        <img src="https://source.unsplash.com/400x500/?woman,professional" alt="Jane Doe">
+        <div class="card-overlay">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" aria-label="Email"><i class="fa fa-envelope"></i></a>
+          </div>
         </div>
+      </div>
+      <div class="card-content">
+        <h2>Jane Doe</h2>
+        <p class="title">CEO & Founder</p>
+        <p class="description">Visionary leader with 15+ years of experience driving innovation and building successful teams.</p>
+        <p class="email">
+          <i class="fa fa-envelope"></i>
+          jane@example.com
+        </p>
+        <button class="contact-btn" onclick="contactMember('Jane Doe', 'jane@example.com')">
+          Contact
+        </button>
       </div>
     </div>
 
-    <div class="column" style="transition:transform .2s ease, box-shadow .2s ease;">
-      <div class="card">
-        <img src="./Avatar1.avif" alt="Mike">
-        <div class="container">
-          <h2>Mike Ross</h2>
-          <p class="title">Art Director</p>
-          <p>Some text that describes me.</p>
-          <p>mike@example.com</p>
-          <p><button class="button">Contact</button></p>
+    <!-- Team Member 2 -->
+    <div class="team-card">
+      <div class="card-image">
+        <img src="https://source.unsplash.com/400x500/?man,business" alt="Mike Ross">
+        <div class="card-overlay">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" aria-label="Email"><i class="fa fa-envelope"></i></a>
+          </div>
         </div>
+      </div>
+      <div class="card-content">
+        <h2>Mike Ross</h2>
+        <p class="title">Art Director</p>
+        <p class="description">Creative mastermind bringing bold ideas to life through stunning visual narratives and design.</p>
+        <p class="email">
+          <i class="fa fa-envelope"></i>
+          mike@example.com
+        </p>
+        <button class="contact-btn" onclick="contactMember('Mike Ross', 'mike@example.com')">
+          Contact
+        </button>
       </div>
     </div>
 
-    <div class="column" style="transition:transform .2s ease, box-shadow .2s ease;">
-      <div class="card">
-        <img src="./Avatar1.avif" alt="John">
-        <div class="container">
-          <h2>John Doe</h2>
-          <p class="title">Designer</p>
-          <p>Some text that describes me.</p>
-          <p>john@example.com</p>
-          <p><button class="button">Contact</button></p>
+    <!-- Team Member 3 -->
+    <div class="team-card">
+      <div class="card-image">
+        <img src="https://source.unsplash.com/400x500/?man,designer" alt="John Doe">
+        <div class="card-overlay">
+          <div class="social-links">
+            <a href="#" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" aria-label="Email"><i class="fa fa-envelope"></i></a>
+          </div>
         </div>
+      </div>
+      <div class="card-content">
+        <h2>John Doe</h2>
+        <p class="title">Lead Designer</p>
+        <p class="description">User-focused designer crafting intuitive experiences that delight and engage audiences worldwide.</p>
+        <p class="email">
+          <i class="fa fa-envelope"></i>
+          john@example.com
+        </p>
+        <button class="contact-btn" onclick="contactMember('John Doe', 'john@example.com')">
+          Contact
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-number" data-target="150">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="50">0</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="15">0</div>
+        <div class="stat-label">Team Members</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="8">0</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ========================================
+    // CONTACT MEMBER FUNCTION
+    // ========================================
+    function contactMember(name, email) {
+      showNotification(`Opening email to ${name}...`, 'info');
+      
+      setTimeout(() => {
+        window.location.href = `mailto:${email}?subject=Hello ${name}`;
+      }, 500);
+    }
+
+    // ========================================
+    // NOTIFICATION SYSTEM
+    // ========================================
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 
+                     type === 'error' ? '#e94560' : '#1a1a2e'};
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 3000;
+        animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s;
+        font-weight: 500;
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // ========================================
+    // INTERSECTION OBSERVER FOR ANIMATIONS
+    // ========================================
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.observe').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ========================================
+    // COUNTER ANIMATION FOR STATS
+    // ========================================
+    function animateCounter(element) {
+      const target = parseInt(element.getAttribute('data-target'));
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+
+      const updateCounter = () => {
+        current += step;
+        if (current < target) {
+          element.textContent = Math.floor(current);
+          requestAnimationFrame(updateCounter);
+        } else {
+          element.textContent = target + '+';
+        }
+      };
+
+      updateCounter();
+    }
+
+    // Trigger counter animation when stats section is visible
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.stat-number').forEach(counter => {
+            animateCounter(counter);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      statsObserver.observe(statsSection);
+    }
+
+    // ========================================
+    // SMOOTH SCROLL FOR BACK BUTTON
+    // ========================================
+    document.querySelector('.back-btn').addEventListener('click', (e) => {
+      // Optional: Add smooth transition before navigation
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.3s ease';
+    });
+
+    // ========================================
+    // HOVER EFFECTS FOR TEAM CARDS
+    // ========================================
+    document.querySelectorAll('.team-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+      });
+    });
+
+    // ========================================
+    // SOCIAL LINKS INTERACTION
+    // ========================================
+    document.querySelectorAll('.social-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const platform = link.querySelector('i').className.split('-')[1];
+        showNotification(`Opening ${platform}...`, 'info');
+      });
+    });
+
+    // ========================================
+    // ADD ANIMATION STYLES
+    // ========================================
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      
+      @keyframes slideOutRight {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // ========================================
+    // PARALLAX EFFECT ON SCROLL
+    // ========================================
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero-section');
+      if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
+    // ========================================
+    // LOG INITIALIZATION
+    // ========================================
+    console.log('✨ About Us Page Loaded Successfully!');
+    console.log('👥 Team profiles initialized');
+  </script>
 </body>
-
 </html>

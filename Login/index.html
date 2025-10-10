@@ -8,6 +8,9 @@
 </head>
 
 <body>
+  <div style="padding:10px 16px;text-align:center;background:#111;color:#fff">
+    <a href="../index.html" style="color:#fff;text-decoration:none">← Back to Home</a>
+  </div>
   <h2 class="pagec main-hd">Login Form</h2>
   <p class="pagec">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
@@ -39,7 +42,7 @@
   </button>
 
   <div id="id01" class="modal">
-    <form class="modal-content animate" action="" method="post">
+    <form class="modal-content animate" action="" method="post" aria-labelledby="loginTitle">
       <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close"
           title="Close Modal">&times;</span>
@@ -47,11 +50,12 @@
       </div>
 
       <div class="container">
+        <h3 id="loginTitle" style="margin:0 0 12px 0;">Sign in</h3>
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required />
+        <input id="uname" type="text" placeholder="Enter Username" name="uname" required />
         <br>
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required />
+        <input id="psw" type="password" placeholder="Enter Password" name="psw" required />
 
         <button type="submit">Login</button>
         <label>

@@ -1,55 +1,363 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design Templates • Maddy BLOGLIFE</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+      body {
+        font-family: "Open Sans", Arial, sans-serif;
+        background-color: #f5f6f7;
+      }
 
-use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Http\Request;
+      h1, h2, h3, h4, h5, h6 {
+        font-family: "Oswald", sans-serif;
+        letter-spacing: 0.5px;
+      }
 
-define('LARAVEL_START', microtime(true));
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
 
-/*
-|--------------------------------------------------------------------------
-| Check If The Application Is Under Maintenance
-|--------------------------------------------------------------------------
-|
-| If the application is in maintenance / demo mode via the "down" command
-| we will load this file so that any pre-rendered content can be shown
-| instead of starting the framework, which could cause an exception.
-|
-*/
+      .brand-title {
+        font-weight: 700;
+      }
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
-    require $maintenance;
-}
+      .hero {
+        background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)), url('https://source.unsplash.com/1600x500/?fashion,design') center/cover no-repeat;
+      }
 
-/*
-|--------------------------------------------------------------------------
-| Register The Auto Loader
-|--------------------------------------------------------------------------
-|
-| Composer provides a convenient, automatically generated class loader for
-| this application. We just need to utilize it! We'll simply require it
-| into the script here so we don't need to manually load our classes.
-|
-*/
+      .filter-chip {
+        border-radius: 999px;
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: .2s;
+        border: 1px solid #ddd;
+      }
 
-require __DIR__.'/../vendor/autoload.php';
+      .filter-chip.active, .filter-chip:hover {
+        background: #000;
+        color: #fff !important;
+        border-color: #000;
+      }
 
-/*
-|--------------------------------------------------------------------------
-| Run The Application
-|--------------------------------------------------------------------------
-|
-| Once we have the application, we can handle the incoming request using
-| the application's HTTP kernel. Then, we will send the response back
-| to this client's browser, allowing them to enjoy our application.
-|
-*/
+      .card-img {
+        height: 220px;
+        object-fit: cover;
+        filter: brightness(96%);
+        transition: transform .25s ease, filter .25s ease;
+      }
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+      .card:hover .card-img {
+        transform: scale(1.03);
+        filter: brightness(100%);
+      }
 
-$kernel = $app->make(Kernel::class);
+      .badge {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+      }
 
-$response = $kernel->handle(
-    $request = Request::capture()
-)->send();
+      .footer-links a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body class="w3-light-grey">
+    <!-- Top social/nav bar for visual consistency -->
+    <div class="w3-bar w3-black w3-hide-small topbar" style="padding: 10px; display: flex; justify-content: center; gap: 10px;">
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-facebook-official"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-instagram"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-twitter"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-pinterest"></i></a>
+      <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
+    </div>
 
-$kernel->terminate($request, $response);
+    <!-- Secondary nav -->
+    <div class="w3-bar w3-dark-grey topbar">
+      <div class="w3-content" style="max-width: 1400px;">
+        <a href="./index.html" class="w3-bar-item w3-button brand-title">Maddy BLOGLIFE</a>
+        <a href="./About_us/" class="w3-bar-item w3-button w3-hide-small">About Us</a>
+        <a href="./Login/" class="w3-bar-item w3-button w3-hide-small">Login</a>
+        <a href="./Register/" class="w3-bar-item w3-button w3-hide-small">Register</a>
+        <a href="#" class="w3-bar-item w3-button w3-hide-small w3-black">Design Templates</a>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <header class="w3-display-container hero" style="height: 280px;">
+      <div class="w3-display-middle w3-center">
+        <h1 class="w3-xxlarge w3-text-white"><b>Design Templates</b></h1>
+        <p class="w3-text-white">Curated layouts for your next fashion story</p>
+      </div>
+    </header>
+
+    <div class="w3-content" style="max-width: 1400px;">
+      <!-- Filters -->
+      <div class="w3-padding-16 w3-white w3-margin-top w3-round-large w3-card">
+        <div class="w3-row">
+          <div class="w3-col s12 m9 l10">
+            <div class="w3-padding-small" id="filterChips" style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <span class="filter-chip active" data-filter="all">All</span>
+              <span class="filter-chip" data-filter="lookbook">Lookbook</span>
+              <span class="filter-chip" data-filter="minimal">Minimal</span>
+              <span class="filter-chip" data-filter="editorial">Editorial</span>
+              <span class="filter-chip" data-filter="street">Street</span>
+              <span class="filter-chip" data-filter="luxury">Luxury</span>
+            </div>
+          </div>
+          <div class="w3-col s12 m3 l2 w3-padding-small">
+            <select id="sortSelect" class="w3-select w3-border w3-round">
+              <option value="featured">Sort: Featured</option>
+              <option value="new">Sort: Newest</option>
+              <option value="alpha">Sort: A–Z</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="w3-row-padding w3-margin-top" id="templateGrid">
+        <!-- Card 1 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="lookbook" data-name="Aura Lookbook" data-date="2025-08-01">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?lookbook,fashion" alt="Aura Lookbook" />
+              <span class="w3-tag w3-black badge">Lookbook</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Aura Lookbook</h5>
+              <p class="w3-small w3-text-grey">Clean grid with immersive visuals.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Aura Lookbook', 'https://source.unsplash.com/1600x900/?lookbook,fashion')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="minimal" data-name="Mono Minimal" data-date="2025-09-10">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?minimal,fashion" alt="Mono Minimal" />
+              <span class="w3-tag w3-black badge">Minimal</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Mono Minimal</h5>
+              <p class="w3-small w3-text-grey">Whitespace-forward classic editorial layout.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Mono Minimal', 'https://source.unsplash.com/1600x900/?minimal,magazine')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="editorial" data-name="Vogue Editorial" data-date="2025-07-20">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?editorial,fashion" alt="Vogue Editorial" />
+              <span class="w3-tag w3-black badge">Editorial</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Vogue Editorial</h5>
+              <p class="w3-small w3-text-grey">Bold typography with layered imagery.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Vogue Editorial', 'https://source.unsplash.com/1600x900/?editorial,layout')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="street" data-name="Urban Street" data-date="2025-06-15">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?street,fashion" alt="Urban Street" />
+              <span class="w3-tag w3-black badge">Street</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Urban Street</h5>
+              <p class="w3-small w3-text-grey">Energetic blocks and bold accents.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Urban Street', 'https://source.unsplash.com/1600x900/?street,style')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="luxury" data-name="Noir Luxury" data-date="2025-05-30">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?luxury,fashion" alt="Noir Luxury" />
+              <span class="w3-tag w3-black badge">Luxury</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Noir Luxury</h5>
+              <p class="w3-small w3-text-grey">Dark mode with gold accents.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Noir Luxury', 'https://source.unsplash.com/1600x900/?luxury,editorial')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="w3-col s12 m6 l4 template-card" data-category="minimal" data-name="Slate Minimal" data-date="2025-04-22">
+          <div class="w3-card w3-round-large card w3-white">
+            <div class="w3-display-container">
+              <img class="card-img w3-image" src="https://source.unsplash.com/600x400/?magazine,layout" alt="Slate Minimal" />
+              <span class="w3-tag w3-black badge">Minimal</span>
+            </div>
+            <div class="w3-padding">
+              <h5 class="w3-margin-top w3-margin-bottom">Slate Minimal</h5>
+              <p class="w3-small w3-text-grey">Editorial grid with soft typography.</p>
+              <div class="w3-margin-top">
+                <button class="w3-button w3-black w3-round" onclick="openPreview('Slate Minimal', 'https://source.unsplash.com/1600x900/?layout,design')">
+                  <i class="fa fa-eye"></i> Preview
+                </button>
+                <a class="w3-button w3-white w3-border w3-round" href="#" onclick="copyLink(event)"><i class="fa fa-link"></i> Copy link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="w3-panel w3-black w3-round-large w3-padding-24 w3-margin-top">
+        <div class="w3-row">
+          <div class="w3-col s12 m8">
+            <h5 class="w3-text-white">Want a custom template?</h5>
+            <p class="w3-text-white w3-opacity">Tell us your vibe, we'll shape the layout.</p>
+          </div>
+          <div class="w3-col s12 m4 w3-right-align">
+            <a href="mailto:hello@example.com" class="w3-button w3-white w3-round"><i class="fa fa-envelope"></i> Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
+      <div class="w3-content" style="max-width: 1400px;">
+        <div class="w3-row">
+          <div class="w3-col s12 m6">
+            <p class="w3-small">© <span id="year"></span> Maddy BLOGLIFE • All rights reserved.</p>
+          </div>
+          <div class="w3-col s12 m6 w3-right-align footer-links">
+            <a href="./index.html" class="w3-text-white w3-hover-text-grey">Home</a>
+            <span class="w3-text-white">·</span>
+            <a href="./About_us/" class="w3-text-white w3-hover-text-grey">About</a>
+            <span class="w3-text-white">·</span>
+            <a href="#" class="w3-text-white w3-hover-text-grey">Top</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="w3-modal" style="display:none;">
+      <div class="w3-modal-content w3-animate-top w3-round-large">
+        <header class="w3-container w3-black">
+          <span onclick="closePreview()" class="w3-button w3-black w3-display-topright">&times;</span>
+          <h4 id="previewTitle" class="w3-text-white">Template Preview</h4>
+        </header>
+        <div class="w3-container">
+          <img id="previewImage" src="" alt="Template Preview" class="w3-image" />
+        </div>
+        <footer class="w3-container w3-padding">
+          <button class="w3-button w3-black w3-round" onclick="closePreview()">Close</button>
+        </footer>
+      </div>
+    </div>
+
+    <script>
+      // Year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Filter logic
+      const chips = Array.from(document.querySelectorAll('.filter-chip'));
+      const cards = Array.from(document.querySelectorAll('.template-card'));
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const category = chip.getAttribute('data-filter');
+          cards.forEach(card => {
+            const show = category === 'all' || card.getAttribute('data-category') === category;
+            card.style.display = show ? '' : 'none';
+          });
+        });
+      });
+
+      // Sort logic
+      const sortSelect = document.getElementById('sortSelect');
+      sortSelect.addEventListener('change', () => {
+        const mode = sortSelect.value; // featured | new | alpha
+        const grid = document.getElementById('templateGrid');
+        const items = Array.from(grid.children);
+        const byName = (a,b) => a.dataset.name.localeCompare(b.dataset.name);
+        const byDateDesc = (a,b) => new Date(b.dataset.date) - new Date(a.dataset.date);
+        let sorted = items;
+        if (mode === 'alpha') sorted = items.sort(byName);
+        else if (mode === 'new') sorted = items.sort(byDateDesc);
+        else sorted = items; // featured: keep original
+        sorted.forEach(el => grid.appendChild(el));
+      });
+
+      // Preview modal
+      function openPreview(title, imageUrl) {
+        document.getElementById('previewTitle').textContent = title;
+        document.getElementById('previewImage').src = imageUrl;
+        document.getElementById('previewModal').style.display = 'block';
+      }
+      function closePreview() {
+        document.getElementById('previewModal').style.display = 'none';
+      }
+      window.openPreview = openPreview;
+      window.closePreview = closePreview;
+
+      // Copy link with feedback
+      async function copyLink(e) {
+        e.preventDefault();
+        const btn = e.currentTarget;
+        const card = btn.closest('.template-card');
+        const name = card ? card.dataset.name : 'Template';
+        const url = window.location.href.split('#')[0] + '#' + encodeURIComponent(name.replace(/\s+/g,'-').toLowerCase());
+        try {
+          await navigator.clipboard.writeText(url);
+          const original = btn.innerHTML;
+          btn.innerHTML = '<i class="fa fa-check"></i> Copied!';
+          btn.classList.add('w3-green');
+          setTimeout(() => { btn.innerHTML = original; btn.classList.remove('w3-green'); }, 1500);
+        } catch (err) {
+          alert('Copy failed. You can copy this link: ' + url);
+        }
+      }
+      window.copyLink = copyLink;
+    </script>
+  </body>
+  </html>

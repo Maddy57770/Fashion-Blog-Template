@@ -1,522 +1,770 @@
 <!DOCTYPE html>
-<html>
-<title>Maddy's Blog Website</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<style>
-  /* Improved Typography */
-  body {
-    font-family: "Arial", sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-  }
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maddy's Fashion Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-  }
+    :root {
+      --primary: #1a1a2e;
+      --secondary: #16213e;
+      --accent: #e94560;
+      --light: #f1f1f1;
+      --white: #ffffff;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
 
-  /* Sticky Navigation Bar */
-  .w3-bar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: var(--light);
+    }
 
-  /* Smooth Scrolling */
-  a {
-    transition: all 0.3s ease;
-  }
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      z-index: 1000;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
 
-  a:hover {
-    color: #ff6f61;
-  }
+    .navbar.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    }
 
-  /* Header Styles */
-  header {
-    background: #f8f9fa;
-    padding: 20px;
-    text-align: center;
-  }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  h1 {
-    font-size: 48px;
-    font-weight: bold;
-    color: #333;
-  }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      cursor: pointer;
+    }
 
-  /* Parallax Effect for Image Header */
-  .w3-wide {
-    position: relative;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
 
-  /* Footer Styles */
-  footer {
-    background-color: #333;
-    color: #ffffff;
-    padding: 20px;
-    text-align: center;
-  }
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
 
-  /* Blog Entries Styles */
-  .w3-container {
-    background-color: #ffffff;
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-  }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gradient);
+      transition: width 0.3s ease;
+    }
 
-  .w3-container:hover {
-    background-color: #f5f5f5;
-  }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
 
-  /* Blog Entries Animation */
-  .w3-container {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fade-up 0.5s ease forwards;
-  }
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
 
-  /* Button Styles */
-  .w3-button {
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
+    .social-icons a {
+      color: var(--white);
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.1);
+    }
 
-  .w3-button:hover {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-  }
+    .social-icons a:hover {
+      background: var(--gradient);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
 
-  /* Card Animation */
-  .w3-card {
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-  }
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.9)), 
+                  url('https://source.unsplash.com/1600x1060/?fashion,elegant') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
 
-  .w3-card:hover {
-    transform: scale(1);
-  }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(233, 69, 96, 0.2) 0%, transparent 50%);
+      animation: pulse 8s ease-in-out infinite;
+    }
 
-  /* Model Animation */
-  .w3-modal-content {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: modal-fade 0.5s ease forwards;
-  }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
 
-  @keyframes modal-fade {
-    from {
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero h1 {
+      font-size: 5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .btn {
+      padding: 1rem 2.5rem;
+      background: var(--gradient);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    /* Blog Card */
+    .blog-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+      animation: fadeInUp 0.6s ease forwards;
       opacity: 0;
-      transform: translateY(20px);
     }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    .blog-card:nth-child(1) { animation-delay: 0.1s; }
+    .blog-card:nth-child(2) { animation-delay: 0.2s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
     }
-  }
 
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    .blog-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
     }
-  }
 
-  .right {
-    background-color: #333;
-    /* Set background color */
-    padding: 10px;
-    /* Add padding for better spacing */
-    text-align: center;
-    /* Align text to the right */
-    margin-bottom: 10px;
-  }
+    .blog-card:hover .blog-image {
+      transform: scale(1.05);
+    }
 
-  .right span {
-    color: #fff;
-    /* Set text color for the span */
-    font-size: 1.5em;
-    /* Adjust font size */
-    margin-right: 20px;
-    /* Add right margin for spacing */
-  }
+    .blog-content {
+      padding: 2rem;
+    }
 
-  .right a {
-    color: #fff;
-    /* Set text color for the links */
-    font-size: 1.5em;
-    text-decoration: none;
-    /* Remove underline from links */
-    margin: 0 10px;
-    /* Add margin to separate links */
-  }
+    .blog-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
 
-  .right a:hover {
-    text-decoration: underline;
-    /* Underline links on hover */
-  }
+    .blog-date {
+      color: #999;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
 
-  .rounded-btn {
-    border: 2px solid #fff;
-    border-radius: 10px;
-  }
+    .blog-text {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
 
-  .w-icons {
-    transition: 0.25s;
+    .blog-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-  }
+    .action-btn {
+      padding: 0.6rem 1.5rem;
+      border: 2px solid #e0e0e0;
+      background: var(--white);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #666;
+    }
 
-  .w-icons:hover {
-    background-color: #000 !important;
-    color: #fff !important;
-    filter: drop-shadow(3px 3px #fff);
-  }
-</style>
+    .action-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
 
-<body class="w3-light-grey">
-  <!-- Navigation bar with social media icons -->
-  <div class="w3-bar w3-black w3-hide-small"
-    style="padding: 10px; display: flex; flex-direction: row; justify-content: center;">
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i
-        class="fa fa-facebook-official fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i
-        class="fa fa-instagram fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i
-        class="fa fa-snapchat fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i class="fa fa-flickr fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i class="fa fa-twitter fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i
-        class="fa fa-linkedin fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons" style="margin-left: 10px;"><i
-        class="fa fa-pinterest fa-lg"></i></a>
-    <a href="#" class="w3-bar-item w3-button w-icons w3-right" style="margin-left: 10px;"><i
-        class="fa fa-search"></i></a>
-  </div>
-  <div class="right" style="background-color: #000;">
-    <span style="text-align: center;">Welcome to my Blog</span>
-    <a href="./About_us/">About Us</a>
-    <a href="./Login/">Login</a>
-    <a href="./Register/">Register</a>
-    <a href="./Design_template/">Design Template</a>
-  </div>
-  <!-- w3-content defines a container for fixed size centered content, 
-and is wrapped around the whole page content, except for the footer in this example -->
-  <div class="w3-content" style="max-width: 1600px">
-    <!-- Header -->
+    .action-btn.active {
+      background: var(--gradient);
+      border-color: transparent;
+      color: var(--white);
+    }
 
-    <header class="w3-container w3-center w3-padding-48 w3-white">
-      <h1 class="w3-xxxlarge"><b>Maddy BLOGLIFE</b></h1>
-      <h6>
-        Welcome to the blog of <span class="w3-tag">Maddy's world</span>
-      </h6>
-    </header>
+    /* Sidebar */
+    .sidebar {
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
 
-    <!-- Image header -->
-    <header class="w3-display-container w3-wide" id="home">
-      <img class="w3-image" src="https://source.unsplash.com/1600x1060/?fashion" alt="Fashion Blog" width="1600"
-        height="1060" style="filter: brightness(50%);" />
-      <div class="w3-display-left w3-padding-large" style="margin: 10px;padding: 10px;">
-        <h1 class="w3-text-white">Maddy's</h1>
-        <h1 class="w3-jumbo w3-text-white w3-hide-small">
-          <b>FASHION BLOG</b>
-        </h1>
-        <h6>
-          <button class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off rounded-btn"
-            style="border: 2px solid #fff;" onclick="document.getElementById('subscribe').style.display='block'">
-            SUBSCRIBE
-          </button>
-        </h6>
+    .sidebar-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-card:hover {
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .popular-post {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .popular-post:hover {
+      transform: translateX(5px);
+    }
+
+    .popular-post img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .popular-post-content h4 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+    }
+
+    .popular-post-content p {
+      font-size: 0.85rem;
+      color: #999;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      padding: 0.5rem 1rem;
+      background: var(--light);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .tag:hover {
+      background: var(--gradient);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Subscribe Form */
+    .subscribe-form input {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .subscribe-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--white);
+      padding: 3rem;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      animation: scaleIn 0.3s ease;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .modal-header h2 {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .close-btn {
+      font-size: 2rem;
+      cursor: pointer;
+      color: #999;
+      transition: all 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: var(--accent);
+      transform: rotate(90deg);
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+
+    .page-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: var(--white);
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-btn:hover {
+      background: var(--gradient);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .page-btn.active {
+      background: var(--gradient);
+      color: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="logo">MADDY</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
       </div>
-    </header>
+      <div class="social-icons">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-pinterest"></i></a>
+      </div>
+    </div>
+  </nav>
 
-    <!-- Grid -->
-    <div class="w3-row w3-padding w3-border">
-      <!-- Blog entries -->
-      <div class="w3-col l8 s12">
-        <!-- Blog entry -->
-        <div class="w3-container w3-white w3-margin w3-padding-large">
-          <div class="w3-center">
-            <h3>TITLE HEADING</h3>
-            <h5>
-              Title description, <span class="w3-opacity">May 2, 2016</span>
-            </h5>
-          </div>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>FASHION BLOG</h1>
+      <p>Explore the world of style, elegance, and timeless fashion</p>
+      <button class="btn" onclick="openModal()">SUBSCRIBE NOW</button>
+    </div>
+  </section>
 
-          <div class="w3-justify">
-            <img src="https://source.unsplash.com/1600x900/?girl" alt="Girl Hat" style="width: 100%"
-              class="w3-padding-16" />
-            <p>
-              <strong>More Hats!</strong> I am crazy about hats these days.
-              Some text about this blog entry. Fashion fashion and mauris
-              neque quam, fermentum ut nisl vitae, convallis maxime. Fashion
-              good so amet nisl, agittis lorem. Curabitur eget quam enim.
+  <!-- Main Content -->
+  <div class="container">
+    <div class="content-grid">
+      <!-- Blog Posts -->
+      <div class="blog-posts">
+        <div class="blog-card">
+          <img src="https://source.unsplash.com/1600x900/?fashion,hat" alt="Fashion" class="blog-image" />
+          <div class="blog-content">
+            <h2 class="blog-title">The Art of Accessorizing</h2>
+            <p class="blog-date">May 2, 2024</p>
+            <p class="blog-text">
+              Discover the transformative power of accessories in modern fashion. From statement hats to elegant scarves, 
+              learn how the right pieces can elevate any outfit from ordinary to extraordinary. Explore timeless styling 
+              techniques and contemporary trends that define today's fashion landscape.
             </p>
-            <p>
-              More text about this blog entry. Fashion ipsum dolor sit amet,
-              consectetur adipiscing elit. Sed non maximus erat.
-            </p>
-            <p>
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="likeFunction(this)">
-                <b><i class="fa fa-thumbs-up"></i> Like</b>
+            <div class="blog-actions">
+              <button class="action-btn" onclick="likePost(this)">
+                <i class="fa fa-thumbs-up"></i> Like
               </button>
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="dislikeFunction(this)">
-                <b><i class="fa fa-thumbs-down"></i> Dislike</b>
+              <button class="action-btn" onclick="dislikePost(this)">
+                <i class="fa fa-thumbs-down"></i> Dislike
               </button>
-
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="shareFunction(this)">
-                <b><i class="fa fa-share-alt"></i> Share</b>
+              <button class="action-btn" onclick="sharePost(this)">
+                <i class="fa fa-share-alt"></i> Share
               </button>
-            </p>
+            </div>
           </div>
         </div>
 
-        <!-- Blog entry -->
-        <div class="w3-container w3-white w3-margin w3-padding-large">
-          <div class="w3-center">
-            <h3>TITLE HEADING</h3>
-            <h5>
-              Title description, <span class="w3-opacity">April 7, 2016</span>
-            </h5>
-          </div>
-
-          <div class="w3-justify">
-            <img src="https://source.unsplash.com/1600x900/?woman" alt="Woman" style="width: 100%"
-              class="w3-padding-16" />
-            <p>
-              <strong>The Beauty in Black & White</strong> I love black &
-              white photography. Some text about this blog entry. Fashion
-              fashion and mauris neque quam, fermentum ut nisl vitae,
-              convallis maxime. Fashion good so amet nisl, agittis lorem.
-              Curabitur eget quam enim.
+        <div class="blog-card">
+          <img src="https://source.unsplash.com/1600x900/?fashion,portrait" alt="Fashion" class="blog-image" />
+          <div class="blog-content">
+            <h2 class="blog-title">Monochrome Magic</h2>
+            <p class="blog-date">April 7, 2024</p>
+            <p class="blog-text">
+              The timeless elegance of black and white fashion never fades. Dive into the sophisticated world of 
+              monochrome styling, where simplicity meets luxury. Learn how to master contrast, texture, and proportion 
+              to create stunning looks that transcend seasonal trends.
             </p>
-            <p>
-              More text about this blog entry. Fashion ipsum dolor sit amet,
-              consectetur adipiscing elit. Sed non maximus erat.
-            </p>
-            <p>
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="likeFunction(this)">
-                <b><i class="fa fa-thumbs-up"></i> Like</b>
+            <div class="blog-actions">
+              <button class="action-btn" onclick="likePost(this)">
+                <i class="fa fa-thumbs-up"></i> Like
               </button>
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="dislikeFunction(this)">
-                <b><i class="fa fa-thumbs-down"></i> Dislike</b>
+              <button class="action-btn" onclick="dislikePost(this)">
+                <i class="fa fa-thumbs-down"></i> Dislike
               </button>
-
-              <button class="w3-button w3-white w3-border rounded-btn" onclick="shareFunction(this)">
-                <b><i class="fa fa-share-alt"></i> Share</b>
+              <button class="action-btn" onclick="sharePost(this)">
+                <i class="fa fa-share-alt"></i> Share
               </button>
-            </p>
+            </div>
           </div>
         </div>
 
         <!-- Pagination -->
-        <div class="w3-center w3-padding-32">
-          <div class="w3-bar">
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-            <a href="#" class="w3-bar-item w3-black w3-button">1</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-          </div>
+        <div class="pagination">
+          <button class="page-btn">«</button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">4</button>
+          <button class="page-btn">»</button>
         </div>
       </div>
 
-      <!-- Introduction menu -->
-      <div class="w3-col l4">
-        <!-- About Card -->
-        <div class="w3-card w3-margin w3-margin-top">
-          <img src="https://source.unsplash.com/600x600/?girl" style="width: 100%" />
-          <div class="w3-container w3-white">
-            <h4><b>My Name</b></h4>
-            <p>
-              Just me, myself and I, exploring the universe of uknownment. I
-              have a heart of love and a interest of lorem ipsum and mauris
-              neque quam.
-            </p>
-          </div>
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Profile Card -->
+        <div class="sidebar-card">
+          <img src="https://source.unsplash.com/600x600/?portrait,woman" alt="Profile" class="profile-img" />
+          <h3 class="sidebar-title">Maddy</h3>
+          <p>Fashion enthusiast, style curator, and storyteller. Exploring the intersection of elegance and self-expression through timeless fashion.</p>
         </div>
-        <hr />
 
         <!-- Popular Posts -->
-        <div class="w3-card w3-margin">
-          <div class="w3-container w3-padding">
-            <h4>Popular Posts</h4>
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Popular Posts</h3>
+          <div class="popular-post">
+            <img src="https://source.unsplash.com/200x200/?fashion,summer" alt="Post" />
+            <div class="popular-post-content">
+              <h4>Summer Style Guide</h4>
+              <p>Essential trends for 2024</p>
+            </div>
           </div>
-          <ul class="w3-ul w3-hoverable w3-white">
-            <li class="w3-padding-16">
-              <img src="https://source.unsplash.com/600x400/?fashion,woman" alt="Popular Post 1"
-                class="w3-left w3-margin-right" style="width: 50px" />
-              <span class="w3-large">Title of Popular Post 1</span><br />
-              <span>Some text about it</span>
-            </li>
-            <li class="w3-padding-16">
-              <img src="https://source.unsplash.com/600x400/?fashion,man" alt="Popular Post 2"
-                class="w3-left w3-margin-right" style="width: 50px" />
-              <span class="w3-large">Title of Popular Post 2</span><br />
-              <span>Some text about it</span>
-            </li>
-            <li class="w3-padding-16">
-              <img src="https://source.unsplash.com/600x400/?fashion,woman" alt="Popular Post 3"
-                class="w3-left w3-margin-right" style="width: 50px" />
-              <span class="w3-large">Title of Popular Post 3</span><br />
-              <span>Some text about it</span>
-            </li>
-            <li class="w3-padding-16 w3-hide-medium w3-hide-small">
-              <img src="https://source.unsplash.com/600x400/?fashion,man" alt="Popular Post 4"
-                class="w3-left w3-margin-right" style="width: 50px" />
-              <span class="w3-large">Title of Popular Post 4</span><br />
-              <span>Some text about it</span>
-            </li>
-          </ul>
+          <div class="popular-post">
+            <img src="https://source.unsplash.com/200x200/?fashion,vintage" alt="Post" />
+            <div class="popular-post-content">
+              <h4>Vintage Revival</h4>
+              <p>Timeless pieces reimagined</p>
+            </div>
+          </div>
+          <div class="popular-post">
+            <img src="https://source.unsplash.com/200x200/?fashion,accessories" alt="Post" />
+            <div class="popular-post-content">
+              <h4>Accessory Essentials</h4>
+              <p>Complete your look</p>
+            </div>
+          </div>
         </div>
-        <hr />
 
         <!-- Tags -->
-        <div class="w3-card w3-margin">
-          <div class="w3-container w3-padding">
-            <h4>Tags</h4>
-          </div>
-          <div class="w3-container w3-white">
-            <p>
-              <span class="w3-tag w3-black w3-margin-bottom">Travel</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">New York</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Fashion</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">London</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Business</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Art</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Food</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Adventure</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Science</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Religion</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Internet</span>
-              <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Books</span>
-            </p>
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Tags</h3>
+          <div class="tags">
+            <span class="tag">Fashion</span>
+            <span class="tag">Style</span>
+            <span class="tag">Travel</span>
+            <span class="tag">Lifestyle</span>
+            <span class="tag">Beauty</span>
+            <span class="tag">Trends</span>
+            <span class="tag">Art</span>
+            <span class="tag">Design</span>
           </div>
         </div>
-        <hr />
 
         <!-- Subscribe -->
-        <div class="w3-card w3-margin">
-          <div class="w3-container w3-padding">
-            <h4>Subscribe</h4>
-          </div>
-          <div class="w3-container w3-white">
-            <p>Enter your email to receive updates:</p>
-            <form action="/subscribe" target="_blank">
-              <input class="w3-input w3-border" type="text" placeholder="Enter your email" style="width: 100%" />
-              <p>
-                <input class="w3-input w3-border" type="tel" placeholder="Enter phone number" />
-              </p>
-              <button type="submit" class="w3-button w3-red w3-margin-top rounded-btn">
-                Subscribe
-              </button>
-            </form>
-          </div>
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Stay Updated</h3>
+          <p>Get the latest fashion insights delivered to your inbox.</p>
+          <form class="subscribe-form" onsubmit="return handleSubscribe(event)">
+            <input type="email" placeholder="Your email address" required />
+            <input type="tel" placeholder="Phone number (optional)" />
+            <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+          </form>
         </div>
-
-        <!-- End Introduction Menu -->
-      </div>
-
-      <!-- End Grid -->
+      </aside>
     </div>
-
-    <!-- End w3-content -->
   </div>
 
   <!-- Footer -->
-  <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
-    <button
-      class="w3-button w3-black w3-disabled w3-padding-large w3-large w3-opacity w3-hover-opacity-off rounded-btn">
-      Previous
-    </button>
-    <button class="w3-button w3-black w3-padding-large w3-large w3-opacity w3-hover-opacity-off rounded-btn">
-      Next
-    </button>
-    <p>
-      Powered by
-      <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a>
-    </p>
+  <footer>
+    <p>&copy; 2024 Maddy's Fashion Blog. All rights reserved.</p>
+    <p style="margin-top: 1rem; opacity: 0.7;">Crafted with passion for style enthusiasts worldwide</p>
   </footer>
 
   <!-- Subscribe Modal -->
-  <div id="subscribe" class="w3-modal">
-    <div class="w3-modal-content w3-animate-top w3-card-4">
-      <header class="w3-container w3-red w3-display-container">
-        <span onclick="document.getElementById('subscribe').style.display='none'"
-          class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-        <h2>Subscribe</h2>
-      </header>
-      <div class="w3-container">
-        <p>
-          Subscribe to our newsletter and receive exclusive offers every week.
-        </p>
-        <form action="/subscribe" target="_blank">
-          <input class="w3-input w3-border" type="text" placeholder="Enter your email" style="width: 100%" />
-          <button type="submit" class="w3-button w3-red w3-margin-top rounded-btn">
-            Subscribe
-          </button>
-        </form>
+  <div class="modal" id="subscribeModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Subscribe to Newsletter</h2>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
       </div>
+      <p>Join our community and receive exclusive fashion insights, style tips, and special offers every week.</p>
+      <form class="subscribe-form" onsubmit="return handleSubscribe(event)">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
+      </form>
     </div>
   </div>
 
   <script>
-    // JavaScript function for liking a blog post
-    function likeFunction(button) {
-      // You can add your logic here to handle the "Like" action
-      // For now, let's just change the button text to "Liked"
-      button.innerHTML = "<i class='fa fa-thumbs-up'></i> Liked";
-      button.disabled = true; // Disable the button after liking
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Modal functions
+    function openModal() {
+      document.getElementById('subscribeModal').style.display = 'flex';
     }
 
-    // JavaScript function for disliking a blog post
-    function dislikeFunction(button) {
-      // You can add your logic here to handle the "Dislike" action
-      // For now, let's just change the button text to "Disliked"
-      button.innerHTML = "<i class='fa fa-thumbs-down'></i> Disliked";
-      button.disabled = true; // Disable the button after disliking
+    function closeModal() {
+      document.getElementById('subscribeModal').style.display = 'none';
     }
 
-    function shareFunction(button) {
-      const originalHtml = button.innerHTML;
+    window.onclick = function(event) {
+      const modal = document.getElementById('subscribeModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Like post
+    function likePost(btn) {
+      btn.innerHTML = '<i class="fa fa-thumbs-up"></i> Liked';
+      btn.classList.add('active');
+      btn.disabled = true;
+    }
+
+    // Dislike post
+    function dislikePost(btn) {
+      btn.innerHTML = '<i class="fa fa-thumbs-down"></i> Disliked';
+      btn.classList.add('active');
+      btn.disabled = true;
+    }
+
+    // Share post
+    function sharePost(btn) {
       const url = window.location.href;
+      const originalHtml = btn.innerHTML;
+      
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function () {
-          button.innerHTML = "<i class='fa fa-check'></i> Copied!";
-          button.classList.add('w3-green');
-          setTimeout(function () {
-            button.innerHTML = originalHtml;
-            button.classList.remove('w3-green');
-          }, 1500);
-        }).catch(function () {
-          // Fallback prompt if clipboard fails
-          window.prompt('Copy the link below:', url);
+        navigator.clipboard.writeText(url).then(() => {
+          btn.innerHTML = '<i class="fa fa-check"></i> Copied!';
+          btn.classList.add('active');
+          setTimeout(() => {
+            btn.innerHTML = originalHtml;
+            btn.classList.remove('active');
+          }, 2000);
+        }).catch(() => {
+          prompt('Copy this link:', url);
         });
       } else {
-        // Legacy fallback
-        window.prompt('Copy the link below:', url);
+        prompt('Copy this link:', url);
       }
+    }
+
+    // Subscribe form
+    function handleSubscribe(event) {
+      event.preventDefault();
+      alert('Thank you for subscribing! 🎉');
+      closeModal();
+      event.target.reset();
+      return false;
     }
   </script>
 </body>
-
 </html>

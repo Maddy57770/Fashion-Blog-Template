@@ -7,6 +7,8 @@ body {
   align-self: center;
   padding: 5px;
   text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fafafa 0%, #f0f4ff 100%);
 }
 .pagec{
   width: 90%;
@@ -43,6 +45,12 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
   border-radius: 6px;
+  outline: none;
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+input[type=text]:focus, input[type=password]:focus {
+  border-color: #04AA6D;
+  box-shadow: 0 0 0 3px rgba(4,170,109,0.15);
 }
 
 /* Set a style for all buttons */
@@ -56,7 +64,7 @@ button {
   width: 100%;
   border: 2px solid #04AA6D;
   border-radius: 6px;
-  transition: 0.25s;
+  transition: transform .1s ease, background .25s ease, color .25s ease, box-shadow .2s ease;
   width: 60%;
 }
 
@@ -64,7 +72,9 @@ button:hover {
   opacity: 0.8;
   background-color: #04AA6D;
   color: white;
+  box-shadow: 0 8px 24px rgba(4,170,109,0.25);
 }
+button:active{ transform: translateY(1px); }
 
 /* Extra styles for the cancel button */
 .cancelbtn {
@@ -113,14 +123,17 @@ span.psw {
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   padding-top: 60px;
+  backdrop-filter: blur(3px);
 }
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #ffffff;
   margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
+  border: 1px solid #e6e6e6;
   width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 /* The Close Button (x) */

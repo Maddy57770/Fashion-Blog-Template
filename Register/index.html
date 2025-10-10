@@ -9,6 +9,9 @@
 </head>
 
 <body>
+  <div style="padding:10px 16px;text-align:center;background:#111;color:#fff">
+    <a href="../index.html" style="color:#fff;text-decoration:none">← Back to Home</a>
+  </div>
   <h2 class="pagec main-hd">Registration Form</h2>
   <p class="pagec">
     Fill out the form below to create an account.
@@ -19,7 +22,7 @@
   </button>
 
   <div id="id02" class="modal">
-    <form class="modal-content animate" action="" method="post">
+    <form class="modal-content animate" action="" method="post" aria-labelledby="registerTitle">
       <!-- <div class="imgcontainer">
         <span onclick="document.getElementById('id02').style.display='none'" class="close"
           title="Close Modal">&times;</span>
@@ -27,17 +30,18 @@
       </div> -->
 
       <div class="container">
+        <h3 id="registerTitle" style="margin:0 0 12px 0;">Create your account</h3>
         <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required />
+        <input id="email" type="email" placeholder="Enter Email" name="email" required />
         <br>
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required />
+        <input id="uname" type="text" placeholder="Enter Username" name="uname" required />
         <br>
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required />
+        <input id="psw" type="password" placeholder="Enter Password" name="psw" required />
         <br>
         <label for="confirm_psw"><b>Confirm Password</b></label>
-        <input type="password" placeholder="Confirm Password" name="confirm_psw" required />
+        <input id="confirm_psw" type="password" placeholder="Confirm Password" name="confirm_psw" required />
 
         <button type="submit">Register</button>
       </div>

@@ -1,770 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maddy's Fashion Blog</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      --primary: #1a1a2e;
-      --secondary: #16213e;
-      --accent: #e94560;
-      --light: #f1f1f1;
-      --white: #ffffff;
-      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: var(--light);
-    }
-
-    /* Navigation */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(26, 26, 46, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 1rem 0;
-      z-index: 1000;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .navbar.scrolled {
-      padding: 0.5rem 0;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .nav-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      cursor: pointer;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--gradient);
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-icons a {
-      color: var(--white);
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .social-icons a:hover {
-      background: var(--gradient);
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-    }
-
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(22, 33, 62, 0.9)), 
-                  url('https://source.unsplash.com/1600x1060/?fashion,elegant') center/cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.2) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(233, 69, 96, 0.2) 0%, transparent 50%);
-      animation: pulse 8s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      animation: fadeInUp 1s ease;
-    }
-
-    .hero h1 {
-      font-size: 5rem;
-      font-weight: 900;
-      margin-bottom: 1rem;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .btn {
-      padding: 1rem 2.5rem;
-      background: var(--gradient);
-      color: var(--white);
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-    }
-
-    /* Main Content */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 3rem;
-      margin-top: 2rem;
-    }
-
-    /* Blog Card */
-    .blog-card {
-      background: var(--white);
-      border-radius: 20px;
-      overflow: hidden;
-      margin-bottom: 3rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s ease;
-      animation: fadeInUp 0.6s ease forwards;
-      opacity: 0;
-    }
-
-    .blog-card:nth-child(1) { animation-delay: 0.1s; }
-    .blog-card:nth-child(2) { animation-delay: 0.2s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-    }
-
-    .blog-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    }
-
-    .blog-image {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .blog-card:hover .blog-image {
-      transform: scale(1.05);
-    }
-
-    .blog-content {
-      padding: 2rem;
-    }
-
-    .blog-title {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: var(--primary);
-    }
-
-    .blog-date {
-      color: #999;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .blog-text {
-      color: #666;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-    }
-
-    .blog-actions {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .action-btn {
-      padding: 0.6rem 1.5rem;
-      border: 2px solid #e0e0e0;
-      background: var(--white);
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      color: #666;
-    }
-
-    .action-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .action-btn.active {
-      background: var(--gradient);
-      border-color: transparent;
-      color: var(--white);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: sticky;
-      top: 100px;
-      height: fit-content;
-    }
-
-    .sidebar-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .sidebar-card:hover {
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-    }
-
-    .profile-img {
-      width: 100%;
-      border-radius: 15px;
-      margin-bottom: 1rem;
-    }
-
-    .sidebar-title {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .popular-post {
-      display: flex;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid #f0f0f0;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .popular-post:hover {
-      transform: translateX(5px);
-    }
-
-    .popular-post img {
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-
-    .popular-post-content h4 {
-      font-size: 1rem;
-      margin-bottom: 0.3rem;
-      color: var(--primary);
-    }
-
-    .popular-post-content p {
-      font-size: 0.85rem;
-      color: #999;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .tag {
-      padding: 0.5rem 1rem;
-      background: var(--light);
-      border-radius: 50px;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .tag:hover {
-      background: var(--gradient);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    /* Subscribe Form */
-    .subscribe-form input {
-      width: 100%;
-      padding: 1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .subscribe-form input:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(5px);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: var(--white);
-      padding: 3rem;
-      border-radius: 20px;
-      max-width: 500px;
-      width: 90%;
-      animation: scaleIn 0.3s ease;
-    }
-
-    @keyframes scaleIn {
-      from {
-        transform: scale(0.8);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .modal-header h2 {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .close-btn {
-      font-size: 2rem;
-      cursor: pointer;
-      color: #999;
-      transition: all 0.3s ease;
-    }
-
-    .close-btn:hover {
-      color: var(--accent);
-      transform: rotate(90deg);
-    }
-
-    /* Pagination */
-    .pagination {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 3rem 0;
-    }
-
-    .page-btn {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      border: none;
-      background: var(--white);
-      color: var(--primary);
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .page-btn:hover {
-      background: var(--gradient);
-      color: var(--white);
-      transform: translateY(-3px);
-    }
-
-    .page-btn.active {
-      background: var(--gradient);
-      color: var(--white);
-    }
-
-    /* Footer */
-    footer {
-      background: var(--primary);
-      color: var(--white);
-      padding: 3rem 2rem;
-      text-align: center;
-      margin-top: 4rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 968px) {
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 3rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .sidebar {
-        position: static;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddy's Fashion Blog</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <div class="logo">MADDY</div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="social-icons">
-        <a href="#"><i class="fa fa-facebook"></i></a>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        <a href="#"><i class="fa fa-pinterest"></i></a>
-      </div>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-  </nav>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>FASHION BLOG</h1>
-      <p>Explore the world of style, elegance, and timeless fashion</p>
-      <button class="btn" onclick="openModal()">SUBSCRIBE NOW</button>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">MADDY</div>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="nav-links" id="navLinks">
+                <a href="#home" data-section="home">Home</a>
+                <a href="#about" data-section="about">About</a>
+                <a href="#blog" data-section="blog">Blog</a>
+                <a href="#contact" data-section="contact">Contact</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-title-line">FASHION</span>
+                <span class="hero-title-line">BLOG</span>
+            </h1>
+            <p class="hero-subtitle">Explore the world of style, elegance, and timeless fashion</p>
+            <button class="btn btn-primary" onclick="openModal()">
+                <span>SUBSCRIBE NOW</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="content-grid">
+            <!-- Blog Posts -->
+            <div class="blog-posts">
+                <!-- Blog Card 1 -->
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-image-container">
+                        <!-- Using Picsum Photos for fashion/accessories image -->
+                        <img src="https://picsum.photos/1600/900?random=1" 
+                             alt="Fashion Accessories" 
+                             class="blog-image" 
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/1600x900/f8f8f8/333333?text=Fashion+Accessories'">
+                        <div class="blog-category">ACCESSORIES</div>
+                    </div>
+                    <div class="blog-content">
+                        <h2 class="blog-title">The Art of Accessorizing</h2>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> May 2, 2024</span>
+                            <span class="blog-author"><i class="far fa-user"></i> Maddy</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <p class="blog-text">
+                            Discover the transformative power of accessories in modern fashion. From statement hats to elegant scarves, learn how the right pieces can elevate any outfit from ordinary to extraordinary. Explore timeless styling techniques and contemporary trends that define today's fashion landscape.
+                        </p>
+                        <div class="blog-actions">
+                            <button class="action-btn" onclick="likePost(this)">
+                                <i class="far fa-heart"></i> 
+                                <span class="action-count">124</span>
+                            </button>
+                            <button class="action-btn" onclick="commentPost(this)">
+                                <i class="far fa-comment"></i> 
+                                <span class="action-count">18</span>
+                            </button>
+                            <button class="action-btn" onclick="sharePost(this)">
+                                <i class="far fa-share-alt"></i> Share
+                            </button>
+                            <button class="action-btn" onclick="savePost(this)">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blog Card 2 -->
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="blog-image-container">
+                        <!-- Using Picsum Photos for fashion portrait -->
+                        <img src="https://picsum.photos/1600/900?random=2" 
+                             alt="Fashion Style" 
+                             class="blog-image" 
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/1600x900/f8f8f8/333333?text=Fashion+Style'">
+                        <div class="blog-category">STYLE</div>
+                    </div>
+                    <div class="blog-content">
+                        <h2 class="blog-title">Monochrome Magic</h2>
+                        <div class="blog-meta">
+                            <span class="blog-date"><i class="far fa-calendar-alt"></i> April 7, 2024</span>
+                            <span class="blog-author"><i class="far fa-user"></i> Maddy</span>
+                            <span class="blog-read-time"><i class="far fa-clock"></i> 3 min read</span>
+                        </div>
+                        <p class="blog-text">
+                            The timeless elegance of black and white fashion never fades. Dive into the sophisticated world of monochrome styling, where simplicity meets luxury. Learn how to master contrast, texture, and proportion to create stunning looks that transcend seasonal trends.
+                        </p>
+                        <div class="blog-actions">
+                            <button class="action-btn" onclick="likePost(this)">
+                                <i class="far fa-heart"></i> 
+                                <span class="action-count">89</span>
+                            </button>
+                            <button class="action-btn" onclick="commentPost(this)">
+                                <i class="far fa-comment"></i> 
+                                <span class="action-count">12</span>
+                            </button>
+                            <button class="action-btn" onclick="sharePost(this)">
+                                <i class="far fa-share-alt"></i> Share
+                            </button>
+                            <button class="action-btn" onclick="savePost(this)">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button class="page-btn page-prev" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="page-btn active">1</button>
+                    <button class="page-btn">2</button>
+                    <button class="page-btn">3</button>
+                    <button class="page-btn">4</button>
+                    <button class="page-btn page-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Profile Card -->
+                <div class="sidebar-card profile-card" data-aos="fade-left">
+                    <div class="profile-img-container">
+                        <!-- Using UI Avatars for profile picture -->
+                        <img src="https://ui-avatars.com/api/?name=Maddy&size=600&background=ff6b6b&color=fff&rounded=true" 
+                             alt="Maddy Profile" 
+                             class="profile-img"
+                             onerror="this.src='https://via.placeholder.com/600x600/ff6b6b/ffffff?text=M'">
+                        <div class="profile-badge">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    <h3 class="sidebar-title">Maddy</h3>
+                    <p class="profile-bio">
+                        Fashion enthusiast, style curator, and storyteller. Exploring the intersection of elegance and self-expression through timeless fashion.
+                    </p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number">234</span>
+                            <span class="stat-label">Posts</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">12.5k</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">89</span>
+                            <span class="stat-label">Following</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Posts -->
+                <div class="sidebar-card" data-aos="fade-left" data-aos-delay="100">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-fire"></i> Trending Now
+                    </h3>
+                    <div class="popular-posts">
+                        <article class="popular-post">
+                            <img src="https://picsum.photos/200/200?random=3" 
+                                 alt="Summer Style" 
+                                 onerror="this.src='https://via.placeholder.com/200x200/ffd93d/333333?text=Summer'">
+                            <div class="popular-post-content">
+                                <h4>Summer Style Guide</h4>
+                                <p>Essential trends for 2024</p>
+                            </div>
+                        </article>
+                        <article class="popular-post">
+                            <img src="https://picsum.photos/200/200?random=4" 
+                                 alt="Vintage Fashion" 
+                                 onerror="this.src='https://via.placeholder.com/200x200/6bcb77/ffffff?text=Vintage'">
+                            <div class="popular-post-content">
+                                <h4>Vintage Revival</h4>
+                                <p>Timeless pieces reimagined</p>
+                            </div>
+                        </article>
+                        <article class="popular-post">
+                            <img src="https://picsum.photos/200/200?random=5" 
+                                 alt="Accessories" 
+                                 onerror="this.src='https://via.placeholder.com/200x200/4d96ff/ffffff?text=Accessories'">
+                            <div class="popular-post-content">
+                                <h4>Accessory Essentials</h4>
+                                <p>Complete your look</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="sidebar-card" data-aos="fade-left" data-aos-delay="200">
+                    <h3 class="sidebar-title">
+                        <i class="fas fa-tags"></i> Popular Tags
+                    </h3>
+                    <div class="tags">
+                        <span class="tag" data-tag="fashion">Fashion</span>
+                        <span class="tag" data-tag="style">Style</span>
+                        <span class="tag" data-tag="travel">Travel</span>
+                        <span class="tag" data-tag="lifestyle">Lifestyle</span>
+                        <span class="tag" data-tag="beauty">Beauty</span>
+                        <span class="tag" data-tag="trends">Trends</span>
+                        <span class="tag" data-tag="art">Art</span>
+                        <span class="tag" data-tag="design">Design</span>
+                    </div>
+                </div>
+
+                <!-- Subscribe -->
+                <div class="sidebar-card subscribe-card" data-aos="fade-left" data-aos-delay="300">
+                    <div class="subscribe-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="sidebar-title">Stay Updated</h3>
+                    <p>Get the latest fashion insights delivered to your inbox.</p>
+                    <form class="subscribe-form" id="sidebarSubscribeForm">
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email address" required>
+                            <label>Email Address</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Phone number (optional)">
+                            <label>Phone Number</label>
+                        </div>
+                        <button type="submit" class="btn btn-gradient">
+                            <span>Subscribe</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+        </div>
     </div>
-  </section>
 
-  <!-- Main Content -->
-  <div class="container">
-    <div class="content-grid">
-      <!-- Blog Posts -->
-      <div class="blog-posts">
-        <div class="blog-card">
-          <img src="https://source.unsplash.com/1600x900/?fashion,hat" alt="Fashion" class="blog-image" />
-          <div class="blog-content">
-            <h2 class="blog-title">The Art of Accessorizing</h2>
-            <p class="blog-date">May 2, 2024</p>
-            <p class="blog-text">
-              Discover the transformative power of accessories in modern fashion. From statement hats to elegant scarves, 
-              learn how the right pieces can elevate any outfit from ordinary to extraordinary. Explore timeless styling 
-              techniques and contemporary trends that define today's fashion landscape.
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About</h3>
+                <p>Your daily dose of fashion inspiration, style tips, and trend forecasts.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Maddy's Fashion Blog. All rights reserved.</p>
+            <p>Crafted with <i class="fas fa-heart"></i> for style enthusiasts worldwide</p>
+        </div>
+    </footer>
+
+    <!-- Subscribe Modal -->
+    <div class="modal" id="subscribeModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h2>Join Our Fashion Community</h2>
+            </div>
+            <p class="modal-description">
+                Get exclusive fashion insights, style tips, and special offers delivered straight to your inbox every week.
             </p>
-            <div class="blog-actions">
-              <button class="action-btn" onclick="likePost(this)">
-                <i class="fa fa-thumbs-up"></i> Like
-              </button>
-              <button class="action-btn" onclick="dislikePost(this)">
-                <i class="fa fa-thumbs-down"></i> Dislike
-              </button>
-              <button class="action-btn" onclick="sharePost(this)">
-                <i class="fa fa-share-alt"></i> Share
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="blog-card">
-          <img src="https://source.unsplash.com/1600x900/?fashion,portrait" alt="Fashion" class="blog-image" />
-          <div class="blog-content">
-            <h2 class="blog-title">Monochrome Magic</h2>
-            <p class="blog-date">April 7, 2024</p>
-            <p class="blog-text">
-              The timeless elegance of black and white fashion never fades. Dive into the sophisticated world of 
-              monochrome styling, where simplicity meets luxury. Learn how to master contrast, texture, and proportion 
-              to create stunning looks that transcend seasonal trends.
+            <form class="subscribe-form" id="modalSubscribeForm">
+                <div class="form-group">
+                    <input type="email" id="modalEmail" placeholder="Enter your email" required>
+                    <label for="modalEmail">Email Address</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="modalName" placeholder="Your name (optional)">
+                    <label for="modalName">Full Name</label>
+                </div>
+                <button type="submit" class="btn btn-gradient btn-block">
+                    <span>Subscribe Now</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            <p class="modal-footer">
+                <i class="fas fa-lock"></i> We respect your privacy. Unsubscribe anytime.
             </p>
-            <div class="blog-actions">
-              <button class="action-btn" onclick="likePost(this)">
-                <i class="fa fa-thumbs-up"></i> Like
-              </button>
-              <button class="action-btn" onclick="dislikePost(this)">
-                <i class="fa fa-thumbs-down"></i> Dislike
-              </button>
-              <button class="action-btn" onclick="sharePost(this)">
-                <i class="fa fa-share-alt"></i> Share
-              </button>
-            </div>
-          </div>
         </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-          <button class="page-btn">«</button>
-          <button class="page-btn active">1</button>
-          <button class="page-btn">2</button>
-          <button class="page-btn">3</button>
-          <button class="page-btn">4</button>
-          <button class="page-btn">»</button>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <!-- Profile Card -->
-        <div class="sidebar-card">
-          <img src="https://source.unsplash.com/600x600/?portrait,woman" alt="Profile" class="profile-img" />
-          <h3 class="sidebar-title">Maddy</h3>
-          <p>Fashion enthusiast, style curator, and storyteller. Exploring the intersection of elegance and self-expression through timeless fashion.</p>
-        </div>
-
-        <!-- Popular Posts -->
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Popular Posts</h3>
-          <div class="popular-post">
-            <img src="https://source.unsplash.com/200x200/?fashion,summer" alt="Post" />
-            <div class="popular-post-content">
-              <h4>Summer Style Guide</h4>
-              <p>Essential trends for 2024</p>
-            </div>
-          </div>
-          <div class="popular-post">
-            <img src="https://source.unsplash.com/200x200/?fashion,vintage" alt="Post" />
-            <div class="popular-post-content">
-              <h4>Vintage Revival</h4>
-              <p>Timeless pieces reimagined</p>
-            </div>
-          </div>
-          <div class="popular-post">
-            <img src="https://source.unsplash.com/200x200/?fashion,accessories" alt="Post" />
-            <div class="popular-post-content">
-              <h4>Accessory Essentials</h4>
-              <p>Complete your look</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tags -->
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Tags</h3>
-          <div class="tags">
-            <span class="tag">Fashion</span>
-            <span class="tag">Style</span>
-            <span class="tag">Travel</span>
-            <span class="tag">Lifestyle</span>
-            <span class="tag">Beauty</span>
-            <span class="tag">Trends</span>
-            <span class="tag">Art</span>
-            <span class="tag">Design</span>
-          </div>
-        </div>
-
-        <!-- Subscribe -->
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Stay Updated</h3>
-          <p>Get the latest fashion insights delivered to your inbox.</p>
-          <form class="subscribe-form" onsubmit="return handleSubscribe(event)">
-            <input type="email" placeholder="Your email address" required />
-            <input type="tel" placeholder="Phone number (optional)" />
-            <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
-          </form>
-        </div>
-      </aside>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2024 Maddy's Fashion Blog. All rights reserved.</p>
-    <p style="margin-top: 1rem; opacity: 0.7;">Crafted with passion for style enthusiasts worldwide</p>
-  </footer>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
-  <!-- Subscribe Modal -->
-  <div class="modal" id="subscribeModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Subscribe to Newsletter</h2>
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-      </div>
-      <p>Join our community and receive exclusive fashion insights, style tips, and special offers every week.</p>
-      <form class="subscribe-form" onsubmit="return handleSubscribe(event)">
-        <input type="email" placeholder="Enter your email" required />
-        <button type="submit" class="btn" style="width: 100%;">Subscribe</button>
-      </form>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="toast-icon fas fa-check-circle"></i>
+        <span class="toast-message">Action completed successfully!</span>
     </div>
-  </div>
 
-  <script>
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const navbar = document.getElementById('navbar');
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Modal functions
-    function openModal() {
-      document.getElementById('subscribeModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-      document.getElementById('subscribeModal').style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById('subscribeModal');
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-
-    // Like post
-    function likePost(btn) {
-      btn.innerHTML = '<i class="fa fa-thumbs-up"></i> Liked';
-      btn.classList.add('active');
-      btn.disabled = true;
-    }
-
-    // Dislike post
-    function dislikePost(btn) {
-      btn.innerHTML = '<i class="fa fa-thumbs-down"></i> Disliked';
-      btn.classList.add('active');
-      btn.disabled = true;
-    }
-
-    // Share post
-    function sharePost(btn) {
-      const url = window.location.href;
-      const originalHtml = btn.innerHTML;
-      
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(() => {
-          btn.innerHTML = '<i class="fa fa-check"></i> Copied!';
-          btn.classList.add('active');
-          setTimeout(() => {
-            btn.innerHTML = originalHtml;
-            btn.classList.remove('active');
-          }, 2000);
-        }).catch(() => {
-          prompt('Copy this link:', url);
-        });
-      } else {
-        prompt('Copy this link:', url);
-      }
-    }
-
-    // Subscribe form
-    function handleSubscribe(event) {
-      event.preventDefault();
-      alert('Thank you for subscribing! 🎉');
-      closeModal();
-      event.target.reset();
-      return false;
-    }
-  </script>
+    <!-- Custom JavaScript -->
+    <script src="js/script.js"></script>
 </body>
 </html>
